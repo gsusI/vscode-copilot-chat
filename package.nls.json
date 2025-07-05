@@ -5,6 +5,8 @@
 	"github.copilot.badge.twitter": "Follow GitHub on Twitter",
 	"github.copilot.icon": "GitHub Copilot icon",
 	"github.copilot.command.explainThis": "Explain",
+	"github.copilot.command.selectLanguageModel": "Select Language Model",
+	"github.copilot.command.selectChatModel": "Select Chat Model",
 	"github.copilot.command.reviewAndComment": "Review and Comment",
 	"github.copilot.command.applyReviewSuggestion": "Apply",
 	"github.copilot.command.applyReviewSuggestionAndNext": "Apply and Go to Next",

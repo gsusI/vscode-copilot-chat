@@ -1834,6 +1834,18 @@
 				"category": "GitHub Copilot"
 			},
 			{
+				"command": "github.copilot.selectLanguageModel",
+				"title": "%github.copilot.command.selectLanguageModel%",
+				"enablement": "!github.copilot.interactiveSession.disabled",
+				"category": "GitHub Copilot"
+			},
+			{
+				"command": "github.copilot.chat.selectModel",
+				"title": "%github.copilot.command.selectChatModel%", 
+				"enablement": "!github.copilot.interactiveSession.disabled",
+				"category": "GitHub Copilot"
+			},
+			{
 				"command": "github.copilot.chat.review",
 				"title": "%github.copilot.command.reviewAndComment%",
 				"enablement": "github.copilot.chat.reviewSelection.enabled && !github.copilot.interactiveSession.disabled",

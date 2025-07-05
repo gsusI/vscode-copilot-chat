@@ -35,15 +35,17 @@ export class ModelSelectorService extends Disposable implements IExtensionContri
 		const models = await this.getAllAvailableModels();
 		
 		if (models.length === 0) {
-			vscode.window.showInformationMessage(localize('modelSelector.noModels', 'No language models are currently available.'));
+			vscode.window.showInformationMessage(localize('github.copilot.modelSelector.noModels', 'No language models are currently available.'));
 			return undefined;
 		}
 
 		const quickPick = window.createQuickPick<ModelQuickPickItem | ModelCategoryItem>();
-		quickPick.title = localize('modelSelector.title', 'Select Language Model');
-		quickPick.placeholder = localize('modelSelector.placeholder', 'Type to filter models...');
+		quickPick.title = localize('github.copilot.modelSelector.title', 'Select Language Model');
+		quickPick.placeholder = localize('github.copilot.modelSelector.placeholder', 'Type to filter models...');
 		quickPick.ignoreFocusOut = true;
 		quickPick.canSelectMany = false;
+		quickPick.matchOnDescription = true;  // Enable filtering on description
+		quickPick.matchOnDetail = true;       // Enable filtering on detail
 
 		// Group models by category and create items
 		const items = this.createQuickPickItems(models);
@@ -76,6 +78,7 @@ export class ModelSelectorService extends Disposable implements IExtensionContri
 				quickPick.dispose();
 			});
 
+			// Focus on the search input automatically
 			quickPick.show();
 		});
 	}
@@ -97,7 +100,7 @@ export class ModelSelectorService extends Disposable implements IExtensionContri
 		const categoryOrders: { [category: string]: number } = {};
 
 		models.forEach(model => {
-			const category = model.metadata?.category?.label || localize('modelSelector.otherModels', 'Other Models');
+			const category = model.metadata?.category?.label || localize('github.copilot.modelSelector.otherModels', 'Other Models');
 			const order = model.metadata?.category?.order ?? 999;
 			
 			if (!modelsByCategory[category]) {
@@ -153,7 +156,7 @@ export class ModelSelectorService extends Disposable implements IExtensionContri
 		const parts: string[] = [];
 		
 		if (model.metadata?.isDefault) {
-			parts.push(localize('modelSelector.default', 'Default'));
+			parts.push(localize('github.copilot.modelSelector.default', 'Default'));
 		}
 		
 		if (model.metadata?.cost) {
@@ -162,6 +165,22 @@ export class ModelSelectorService extends Disposable implements IExtensionContri
 
 		if (model.metadata?.version) {
 			parts.push(`v${model.metadata.version}`);
+		}
+
+		// Add capability indicators
+		const capabilities: string[] = [];
+		if (model.metadata?.capabilities?.vision) {
+			capabilities.push(localize('github.copilot.modelSelector.capability.vision', 'Vision'));
+		}
+		if (model.metadata?.capabilities?.toolCalling) {
+			capabilities.push(localize('github.copilot.modelSelector.capability.tools', 'Tools'));
+		}
+		if (model.metadata?.capabilities?.agentMode) {
+			capabilities.push(localize('github.copilot.modelSelector.capability.agent', 'Agent'));
+		}
+		
+		if (capabilities.length > 0) {
+			parts.push(`(${capabilities.join(', ')})`);
 		}
 
 		return parts.join(' • ');

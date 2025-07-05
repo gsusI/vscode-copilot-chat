@@ -32,12 +32,12 @@ export class ModelSelectorContribution extends Disposable implements IExtensionC
 					// Note: VS Code doesn't provide a direct API to change the active language model
 					// So we'll just show a confirmation message for now
 					vscode.window.showInformationMessage(
-						localize('modelSelector.selected', 'Model selected: {0}', selectedModelId)
+						localize('github.copilot.modelSelector.selected', 'Model selected: {0}', selectedModelId)
 					);
 				}
 			} catch (error) {
 				vscode.window.showErrorMessage(
-					localize('modelSelector.error', 'Failed to show model selector: {0}', String(error))
+					localize('github.copilot.modelSelector.error', 'Failed to show model selector: {0}', String(error))
 				);
 			}
 		}));
@@ -56,13 +56,13 @@ export class ModelSelectorContribution extends Disposable implements IExtensionC
 					} catch {
 						// Fallback: just show a message
 						vscode.window.showInformationMessage(
-							localize('modelSelector.chatSelected', 'Chat model selected: {0}', selectedModelId)
+							localize('github.copilot.modelSelector.chatSelected', 'Chat model selected: {0}', selectedModelId)
 						);
 					}
 				}
 			} catch (error) {
 				vscode.window.showErrorMessage(
-					localize('modelSelector.chatError', 'Failed to change chat model: {0}', String(error))
+					localize('github.copilot.modelSelector.chatError', 'Failed to change chat model: {0}', String(error))
 				);
 			}
 		}));
